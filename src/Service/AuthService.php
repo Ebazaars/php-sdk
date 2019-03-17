@@ -14,7 +14,7 @@ class AuthService extends AbstractService
             ['form_params' => ['username' => $username, 'password' => $password]]
         );
 
-        return json_decode($response->getBody()->getContents(), true);
+        return $this->getContent($response);
     }
 
 }

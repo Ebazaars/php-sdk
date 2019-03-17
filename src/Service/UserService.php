@@ -4,6 +4,8 @@ namespace EbazaarsSdk\Service;
 
 
 use EbazaarsSdk\Client\Client;
+use EbazaarsSdk\Constant\Http;
+use EbazaarsSdk\Factory\ServiceFactory;
 
 class UserService extends AbstractService
 {
@@ -37,19 +39,19 @@ class UserService extends AbstractService
             ]
         );
 
-        return $response->getBody()->getContents();
+        return $this->getContent($response);
     }
 
     public function authenticate($username, $password)
     {
-        $authConnectionParams = ['base_uri' => 'http://local.auth.ebazaars.net'];
-        $authClient = new Client($authConnectionParams);
-        $authService = new AuthService($authClient);
+        $serviceFactory = new ServiceFactory();
+        /** @var AuthService $authService */
+        $authService = $serviceFactory->createAuthService(Http::getBaseUrl('auth'));
         $userToken = $authService->getToken($username, $password);
 
-        $user = $this->getClient()->postRequest('/user/by-token', ['form_params' => ['token' => $userToken['token']]]);
+        $response = $this->getClient()->postRequest('/user/by-token', ['form_params' => ['token' => $userToken['token']]]);
 
-        return json_decode($user->getBody()->getContents(), true);
+        return $this->getContent($response);;
     }
 
 }

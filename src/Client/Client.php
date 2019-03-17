@@ -2,36 +2,31 @@
 
 namespace EbazaarsSdk\Client;
 
+use EbazaarsSdk\Config\Config;
 use EbazaarsSdk\Constant\Http;
 
 class Client extends \GuzzleHttp\Client
 {
-
-    private $apiKey;
-
-    private $apiSecret;
-
     private $header;
 
     /**
      * Client constructor.
      *
-     * @param array $config
-     *
-     * $client = new \EbazaarsSdk\Client\Client([
-     *  'api_key'         => 'xxx',
-     *  'api_secret'      => 'xxx',
-     * ]);
-     *
+     * @param Config $config
      */
-    public function __construct(array $config = [])
+    public function __construct(Config $config)
     {
-        $config['base_url'] = Http::BASE_URL;
+        $conf['base_uri'] = $config->getBaseUrl();
         $this->header = new Header();
-        if (isset($config['token'])) {
-            $this->header[\EbazaarsSdk\Constant\Header::getKey('auth_token')] = $config['token'];
+        $clientToken = $config->getClientToken();
+        $customerToken = $config->getCustomerToken();
+        if (!empty($clientToken)) {
+            $this->header[\EbazaarsSdk\Constant\Header::getKey('auth_token')] = $clientToken;
         }
-        parent::__construct($config);
+        if (!empty($customerToken)) {
+            $this->header[\EbazaarsSdk\Constant\Header::getKey('customer_token')] = $customerToken;
+        }
+        parent::__construct($conf);
     }
 
     public function getRequest($uri, array $options = [])

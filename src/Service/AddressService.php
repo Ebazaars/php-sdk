@@ -15,7 +15,7 @@ class AddressService extends AbstractService
         $queryAddressCookie = (!empty($addressCookie) ? "?addressCookie={$addressCookie}" : '');
         $response = $this->client->getRequest(str_replace('{id}', $userId, self::ADDRESS_SHOWALL.$queryAddressCookie));
 
-        return json_decode($response->getBody()->getContents(), true);
+        return $this->getContent($response);
     }
 
     public function create($userId, $params = array())
@@ -23,7 +23,7 @@ class AddressService extends AbstractService
         if ($this->checkAddressParameters($params)) {
             $response = $this->getClient()->postRequest(str_replace('{id}', $userId, self::ADDRESS_CREATE));
 
-            return $response->getBody()->getContents();
+            return $this->getContent($response);
         }
 
         return false;

@@ -12,19 +12,30 @@ class Http
     const PATCH = 'PATCH';
     const DELETE = 'DELETE';
 
-    const BASE_URL = 'http://local.api.ebazaars.net';
+    const AUTH_BASE_URL = 'https://auth.ebazaars.net';
+    const API_BASE_URL = 'https://api.ebazaars.net';
 
-    private static $methods = [
-        'get' => self::GET,
-        'post' => self::POST,
-        'put' => self::PUT,
-        'patch' => self::PATCH,
-        'delete' => self::DELETE,
-    ];
+    const HTTP_OK = 200;
+
+    private static $baseUrls = ['auth' => self::AUTH_BASE_URL, 'api' => self::API_BASE_URL];
+
+    private static $methods
+        = [
+            'get'    => self::GET,
+            'post'   => self::POST,
+            'put'    => self::PUT,
+            'patch'  => self::PATCH,
+            'delete' => self::DELETE,
+        ];
 
     public static function getMethodName($id)
     {
         return isset(self::$methods[$id]) ? self::$methods[$id] : null;
+    }
+
+    public static function getBaseUrl($key)
+    {
+        return isset(self::$baseUrls[$key]) ? self::$baseUrls[$key] : null;
     }
 
 }
