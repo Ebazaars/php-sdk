@@ -32,10 +32,10 @@ class ServiceFactory
         $clientFactory = new ClientFactory();
         $config = $configFactory->createConfig(
             $config['base_url'],
-            $config['client_username'],
-            $config['client_password'],
-            $config['client_token'],
-            $config['customer_token']
+            isset($config['client_username']) ? $config['client_username'] : null,
+            isset($config['client_password']) ? $config['client_password'] : null,
+            isset($config['client_token']) ? $config['client_token'] : null,
+            isset($config['customer_token']) ? $config['customer_token'] : null
         );
         $client = $clientFactory->createClient($config);
 
@@ -64,10 +64,10 @@ class ServiceFactory
         $clientFactory = new ClientFactory();
         $config = $configFactory->createConfig(
             $config['base_url'],
-            $config['client_username'],
-            $config['client_password'],
-            $config['client_token'],
-            $config['customer_token']
+            isset($config['client_username']) ? $config['client_username'] : null,
+            isset($config['client_password']) ? $config['client_password'] : null,
+            isset($config['client_token']) ? $config['client_token'] : null,
+            isset($config['customer_token']) ? $config['customer_token'] : null
         );
         $client = $clientFactory->createClient($config);
 

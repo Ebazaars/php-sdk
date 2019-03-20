@@ -4,6 +4,8 @@
 namespace EbazaarsSdk\Config;
 
 
+use EbazaarsSdk\Authentication\Token;
+
 class Config
 {
     protected $baseUrl;
@@ -88,7 +90,7 @@ class Config
     }
 
     /**
-     * @return mixed
+     * @return Token
      */
     public function getClientToken()
     {
@@ -104,7 +106,7 @@ class Config
     }
 
     /**
-     * @return mixed
+     * @return Token
      */
     public function getCustomerToken()
     {

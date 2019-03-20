@@ -9,6 +9,11 @@ class Token
 
     protected $token;
 
+    public function __construct($token = null)
+    {
+        $this->setToken($token);
+    }
+
     /**
      * @return mixed
      */

@@ -21,10 +21,10 @@ class Client extends \GuzzleHttp\Client
         $clientToken = $config->getClientToken();
         $customerToken = $config->getCustomerToken();
         if (!empty($clientToken)) {
-            $this->header[\EbazaarsSdk\Constant\Header::getKey('auth_token')] = $clientToken;
+            $this->header[\EbazaarsSdk\Constant\Header::getKey('auth_token')] = $clientToken->getToken();
         }
         if (!empty($customerToken)) {
-            $this->header[\EbazaarsSdk\Constant\Header::getKey('customer_token')] = $customerToken;
+            $this->header[\EbazaarsSdk\Constant\Header::getKey('customer_token')] = $customerToken->getToken();
         }
         parent::__construct($conf);
     }

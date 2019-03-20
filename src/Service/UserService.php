@@ -2,10 +2,7 @@
 
 namespace EbazaarsSdk\Service;
 
-
-use EbazaarsSdk\Client\Client;
-use EbazaarsSdk\Constant\Http;
-use EbazaarsSdk\Factory\ServiceFactory;
+use EbazaarsSdk\Authentication\Token;
 
 class UserService extends AbstractService
 {
@@ -42,16 +39,14 @@ class UserService extends AbstractService
         return $this->getContent($response);
     }
 
-    public function authenticate($username, $password)
+    public function authenticate(Token $customerToken)
     {
-        $serviceFactory = new ServiceFactory();
-        /** @var AuthService $authService */
-        $authService = $serviceFactory->createAuthService(Http::getBaseUrl('auth'));
-        $userToken = $authService->getToken($username, $password);
+        $response = $this->getClient()->postRequest(
+            '/user/by-token',
+            ['form_params' => ['token' => $customerToken->getToken()]]
+        );
 
-        $response = $this->getClient()->postRequest('/user/by-token', ['form_params' => ['token' => $userToken['token']]]);
-
-        return $this->getContent($response);;
+        return $this->getContent($response);
     }
 
 }
