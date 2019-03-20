@@ -20,7 +20,7 @@ class ProductService extends AbstractService
     {
         $response = $this->getClient()->getRequest(str_replace('{slug}', $slug, self::GET_BY_SLUG));
 
-        return $this->getClient($response);
+        return $this->getContent($response);
     }
 
 }
