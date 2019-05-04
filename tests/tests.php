@@ -1,14 +1,15 @@
 <?php
 
 include __DIR__.'/../vendor/autoload.php';
-$session = new \EbazaarsSdk\Authentication\Session();
-$serviceFactory = new \EbazaarsSdk\Factory\ServiceFactory();
+$session = new EbazaarsSdk\Authentication\Session();
+$serviceFactory = new EbazaarsSdk\Factory\ServiceFactory();
 
 if (!$session->hasClientToken()) {
 
+    print_r("Token get by auth service");
     /** @var \EbazaarsSdk\Service\AuthService $authService */
     $authService = $serviceFactory->createAuthService(
-        ['base_url' => \EbazaarsSdk\Constant\Http::getBaseUrl('auth')]
+        ['base_url' => EbazaarsSdk\Constant\Http::getBaseUrl('auth')]
     );
     $clientToken = $authService->getToken('<ClientUserName>', '<ClientPassword>');
 
@@ -29,21 +30,21 @@ if (!$session->hasClientToken()) {
 ### Banner service test
 
 /** @var \EbazaarsSdk\Service\BannerService $bannerService */
-//$bannerService = $serviceFactory->createService(
-//    \EbazaarsSdk\Service\BannerService::class,
-//    ['base_url' => \EbazaarsSdk\Constant\Http::getBaseUrl('api'), 'client_token' => $clientToken['token']]
-//);
+$bannerService = $serviceFactory->createService(
+    EbazaarsSdk\Service\BannerService::class,
+    ['base_url' => EbazaarsSdk\Constant\Http::getBaseUrl('banner'), 'client_token' => $session->getClientToken()]
+);
 
-#$response = $bannerService->getByBannerType('slider');
+$response = $bannerService->getByBannerType('slider');
 
 ### Product service test
 
 /** @var \EbazaarsSdk\Service\ProductService $productService */
 //$productService = $serviceFactory->createService(
 //    \EbazaarsSdk\Service\ProductService::class,
-//    ['base_url' => \EbazaarsSdk\Constant\Http::getBaseUrl('api'), 'client_token' => $clientToken['token']]
+//    ['base_url' => \EbazaarsSdk\Constant\Http::getBaseUrl('product'), 'client_token' => $session->getClientToken()]
 //);
-
+//
 //$response = $productService->getAllProducts();
 
 ### User service test
@@ -64,10 +65,12 @@ if (!$session->hasClientToken()) {
 /** @var \EbazaarsSdk\Service\UserService $userService */
 //$userService = $serviceFactory->createService(
 //    \EbazaarsSdk\Service\UserService::class,
-//    ['base_url' => \EbazaarsSdk\Constant\Http::getBaseUrl('api'), 'client_token' => $session->getClientToken()]
+//    ['base_url' => \EbazaarsSdk\Constant\Http::getBaseUrl('user'), 'client_token' => $session->getClientToken()]
 //);
 //
-//$response = $userService->authenticate($session->getCustomerToken());
+//$response = $userService->clientByToken();
+
+#$response = $userService->authenticate($session->getCustomerToken());
 
 print_r($response);
 echo "\n";

@@ -7,7 +7,7 @@ namespace EbazaarsSdk\Service;
 class BannerService extends AbstractService
 {
 
-    const GET_BY_BANNER_TYPE = '/banner/banner-type/{slug}';
+    const GET_BY_BANNER_TYPE = '/banner-type/{slug}';
 
     public function getByBannerType($slug)
     {

@@ -9,6 +9,8 @@ class UserService extends AbstractService
 
     const OAUTH = '/user/oauth';
     const REGISTER = '/user/register';
+    const USER_BY_TOKEN = '/user/by-token';
+    const CLIENT_BY_TOKEN = '/user/client-by-token';
 
     public function register(
         $email,
@@ -42,9 +44,16 @@ class UserService extends AbstractService
     public function authenticate(Token $customerToken)
     {
         $response = $this->getClient()->postRequest(
-            '/user/by-token',
+            self::USER_BY_TOKEN,
             ['form_params' => ['token' => $customerToken->getToken()]]
         );
+
+        return $this->getContent($response);
+    }
+
+    public function clientByToken()
+    {
+        $response = $this->getClient()->getRequest(self::CLIENT_BY_TOKEN);
 
         return $this->getContent($response);
     }

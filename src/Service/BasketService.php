@@ -4,6 +4,9 @@
 namespace EbazaarsSdk\Service;
 
 
+use EbazaarsSdk\Authentication\EbazaarsCookie;
+use EbazaarsSdk\Client\Client;
+
 class BasketService extends AbstractService
 {
 
@@ -12,13 +15,24 @@ class BasketService extends AbstractService
     /** @param id # user id */
     const DETAIL = '/detail/{id}';
 
+    protected $cookie;
+
+    public function __construct(Client $client)
+    {
+        parent::__construct($client);
+        $this->cookie = new EbazaarsCookie();
+    }
+
     public function show()
     {
 
     }
 
-    public function detail($userid){
+    public function detail(){
 
     }
 
+    public function addItem($productId, $variantId){
+
+    }
 }
