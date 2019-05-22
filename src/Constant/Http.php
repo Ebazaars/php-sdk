@@ -12,11 +12,13 @@ class Http
     const PATCH = 'PATCH';
     const DELETE = 'DELETE';
 
-    const AUTH_BASE_URL = 'http://auth.ebazaars.net';
+    const AUTH_BASE_URL = 'http://local.auth.ebazaars.net';
     const API_BASE_URL = 'https://api.ebazaars.net';
     const USER_BASE_URL = 'http://user.ebazaars.net';
-    const PRODUCT_BASE_URL = 'http://product.ebazaars.net';
+    const PRODUCT_BASE_URL = 'http://local.product.ebazaars.net';
     const BANNER_BASE_URL = 'http://banner.ebazaars.net';
+    const CLIENT_BASE_URL = 'http://local.client.ebazaars.net';
+    const PAGE_BASE_URL = 'http://local.page.ebazaars.net';
 
     const HTTP_OK = 200;
 
@@ -27,6 +29,8 @@ class Http
             'user' => self::USER_BASE_URL,
             'product' => self::PRODUCT_BASE_URL,
             'banner' => self::BANNER_BASE_URL,
+            'client' => self::CLIENT_BASE_URL,
+            'page' => self::PAGE_BASE_URL,
         ];
 
     private static $methods
