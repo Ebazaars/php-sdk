@@ -72,7 +72,7 @@ class Client extends \GuzzleHttp\Client
     private function mergeHeader($parameters)
     {
         if (array_key_exists('headers', $parameters)) {
-            array_merge($parameters['headers'], $this->header->getArrayCopy());
+            $parameters['headers'] = array_merge($parameters['headers'], $this->header->getArrayCopy());
         } else {
             $parameters['headers'] = $this->header->getArrayCopy();
         }

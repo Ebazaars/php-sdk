@@ -8,6 +8,8 @@ class Header
 
     const CUSTOMER_TOKEN = 'X-EBZ-CUSTOMER-AUTH-TOKEN';
 
+    const COOKIE_BASKET = 'X-EBZ-BASKET';
+
     public static $headers = ['auth_token' => self::TOKEN, 'customer_auth_token' => self::CUSTOMER_TOKEN];
 
     public static function getKey($id)

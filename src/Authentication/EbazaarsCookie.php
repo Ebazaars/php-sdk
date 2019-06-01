@@ -1,10 +1,6 @@
 <?php
 
-
 namespace EbazaarsSdk\Authentication;
-
-
-use http\Cookie;
 
 class EbazaarsCookie extends Cookie
 {

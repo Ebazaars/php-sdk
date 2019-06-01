@@ -19,6 +19,7 @@ class Http
     const BANNER_BASE_URL = 'http://banner.ebazaars.net';
     const CLIENT_BASE_URL = 'http://local.client.ebazaars.net';
     const PAGE_BASE_URL = 'http://local.page.ebazaars.net';
+    const BASKET_BASE_URL = 'http://local.basket.ebazaars.net';
 
     const HTTP_OK = 200;
 
@@ -31,6 +32,7 @@ class Http
             'banner' => self::BANNER_BASE_URL,
             'client' => self::CLIENT_BASE_URL,
             'page' => self::PAGE_BASE_URL,
+            'basket' => self::BASKET_BASE_URL
         ];
 
     private static $methods
