@@ -41,4 +41,14 @@ class ProductService extends AbstractService
 
         return $this->getContent($response);
     }
+
+    public function getForBasketSummaryByUuid($productUuid)
+    {
+        $response = $this->getClient()->getRequest(
+            str_replace('{productUuid}', $productUuid, self::GET_BY_UUID),
+            ['headers' => ['X-EBZ-GROUPS' => 'basketSummary']]
+        );
+
+        return $this->getContent($response);
+    }
 }
