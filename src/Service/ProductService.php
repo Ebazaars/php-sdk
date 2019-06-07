@@ -11,42 +11,38 @@ class ProductService extends AbstractService
     const GET_BY_CATEGORY = '/by-category-id/{id}';
     const GET_BY_UUID = '/product/uuid/{productUuid}';
 
-    public function getAllProducts()
+    public function getAllProducts($options = null)
     {
-        $response = $this->getClient()->getRequest(self::ALL_PRODUCTS);
+        $response = $this->getClient()->getRequest(self::ALL_PRODUCTS, $options);
 
         return $this->getContent($response);
     }
 
-    public function getBySlug($slug)
-    {
-        $response = $this->getClient()->getRequest(str_replace('{slug}', $slug, self::GET_BY_SLUG));
-
-        return $this->getContent($response);
-    }
-
-    public function getByCategory($id)
-    {
-        $response = $this->getClient()->getRequest(str_replace('{slug}', $id, self::GET_BY_CATEGORY));
-
-        return $this->getContent($response);
-    }
-
-    public function getQuantityByUuid($productUuid)
+    public function getBySlug($slug, $options = null)
     {
         $response = $this->getClient()->getRequest(
-            str_replace('{productUuid}', $productUuid, self::GET_BY_UUID),
-            ['headers' => ['X-EBZ-GROUPS' => 'quantities']]
+            str_replace('{slug}', $slug, self::GET_BY_SLUG),
+            $options
         );
 
         return $this->getContent($response);
     }
 
-    public function getForBasketSummaryByUuid($productUuid)
+    public function getByCategory($id, $options = null)
+    {
+        $response = $this->getClient()->getRequest(
+            str_replace('{slug}', $id, self::GET_BY_CATEGORY),
+            $options
+        );
+
+        return $this->getContent($response);
+    }
+
+    public function getByUuid($productUuid, $options = null)
     {
         $response = $this->getClient()->getRequest(
             str_replace('{productUuid}', $productUuid, self::GET_BY_UUID),
-            ['headers' => ['X-EBZ-GROUPS' => 'basketSummary']]
+            $options
         );
 
         return $this->getContent($response);
