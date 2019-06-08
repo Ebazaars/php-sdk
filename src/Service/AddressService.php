@@ -10,18 +10,21 @@ class AddressService extends AbstractService
     const ADDRESS_SHOWALL = '/address/user/{id}';
     const ADDRESS_CREATE = '/address/create/user/{id}';
 
-    public function showAll($userId, $addressCookie = null)
+    public function showAll($userId, $addressCookie = null, $options = null)
     {
         $queryAddressCookie = (!empty($addressCookie) ? "?addressCookie={$addressCookie}" : '');
-        $response = $this->client->getRequest(str_replace('{id}', $userId, self::ADDRESS_SHOWALL.$queryAddressCookie));
+        $response = $this->getClient()->getRequest(
+            str_replace('{id}', $userId, self::ADDRESS_SHOWALL.$queryAddressCookie),
+            $options
+        );
 
         return $this->getContent($response);
     }
 
-    public function create($userId, $params = array())
+    public function create($userId, $params = array(), $options = null)
     {
         if ($this->checkAddressParameters($params)) {
-            $response = $this->getClient()->postRequest(str_replace('{id}', $userId, self::ADDRESS_CREATE));
+            $response = $this->getClient()->postRequest(str_replace('{id}', $userId, self::ADDRESS_CREATE), $options);
 
             return $this->getContent($response);
         }

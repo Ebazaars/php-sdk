@@ -10,16 +10,16 @@ class PageService extends AbstractService
     const PAGES = '/pages/';
     const BY_SLUG = '/page/slug/{slug}';
 
-    public function getAll()
+    public function getAll($options = null)
     {
-        $response = $this->getClient()->getRequest(self::PAGES);
+        $response = $this->getClient()->getRequest(self::PAGES, $options);
 
         return $this->getContent($response);
     }
 
-    public function getBySlug($slug)
+    public function getBySlug($slug, $options = null)
     {
-        $response = $this->getClient()->getRequest(str_replace('{slug}', $slug, self::BY_SLUG));
+        $response = $this->getClient()->getRequest(str_replace('{slug}', $slug, self::BY_SLUG), $options);
 
         return $this->getContent($response);
     }

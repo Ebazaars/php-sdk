@@ -41,19 +41,22 @@ class UserService extends AbstractService
         return $this->getContent($response);
     }
 
-    public function authenticate(Token $customerToken)
+    public function authenticate(Token $customerToken, $options = null)
     {
+
+        $options['form_params'] = ['token' => $customerToken->getToken()];
+
         $response = $this->getClient()->postRequest(
             self::USER_BY_TOKEN,
-            ['form_params' => ['token' => $customerToken->getToken()]]
+            $options
         );
 
         return $this->getContent($response);
     }
 
-    public function clientByToken()
+    public function clientByToken($options = null)
     {
-        $response = $this->getClient()->getRequest(self::CLIENT_BY_TOKEN);
+        $response = $this->getClient()->getRequest(self::CLIENT_BY_TOKEN, $options);
 
         return $this->getContent($response);
     }

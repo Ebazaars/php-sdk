@@ -10,21 +10,26 @@ class AuthService extends AbstractService
     const AUTH = '/auth/';
     const IS_VALID = '/token/is_valid/';
 
-    public function getToken($username, $password)
+    public function getToken($username, $password, $options = null)
     {
+        $options['form_params'] = ['username' => $username, 'password' => $password];
+
         $response = $this->getClient()->postRequest(
             self::AUTH,
-            ['form_params' => ['username' => $username, 'password' => $password]]
+            $options
         );
 
         return $this->getContent($response);
     }
 
-    public function tokenIsValid(Token $token)
+    public function tokenIsValid(Token $token, $options = null)
     {
+
+        $options['form_params'] = ['token' => $token->getToken()];
+
         $response = $this->getClient()->postRequest(
             self::IS_VALID,
-            ['form_params' => ['token' => $token->getToken()]]
+            $options
         );
 
         return $this->getContent($response);

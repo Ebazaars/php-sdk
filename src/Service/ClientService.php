@@ -9,16 +9,16 @@ class ClientService extends AbstractService
     const GET_CONFIG_VERSION = '/client-config/version';
     const GET_CONFIG = '/client-config/';
 
-    public function getConfigVersion()
+    public function getConfigVersion($options = null)
     {
-        $response = $this->getClient()->getRequest(self::GET_CONFIG_VERSION);
+        $response = $this->getClient()->getRequest(self::GET_CONFIG_VERSION, $options);
 
         return $this->getContent($response);
     }
 
-    public function getConfig()
+    public function getConfig($options = null)
     {
-        $response = $this->getClient()->getRequest(self::GET_CONFIG);
+        $response = $this->getClient()->getRequest(self::GET_CONFIG, $options);
 
         return $this->getContent($response);
     }

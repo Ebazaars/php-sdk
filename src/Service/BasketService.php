@@ -30,14 +30,14 @@ class BasketService extends AbstractService
         $this->cookie = new EbazaarsCookie();
     }
 
-    public function create($customerUuid = null)
+    public function create($customerUuid = null, $options = null)
     {
-        $formParams = [];
+        $options['form_params'] = [];
         if (!empty($customerUuid)) {
             $formParams['customer-uuid'] = $customerUuid;
         }
 
-        $response = $this->getClient()->putRequest(self::CREATE, ['form_params' => $formParams]);
+        $response = $this->getClient()->putRequest(self::CREATE, $options);
 
         return $this->getContent($response);
     }
@@ -47,9 +47,12 @@ class BasketService extends AbstractService
 
     }
 
-    public function detail($cookie)
+    public function detail($cookie, $options = null)
     {
-        $response = $this->getClient()->getRequest(str_replace('{basket_cookie}' ,$cookie, self::GET_BY_COOKIE));
+        $response = $this->getClient()->getRequest(
+            str_replace('{basket_cookie}', $cookie, self::GET_BY_COOKIE),
+            $options
+        );
 
         return $this->getContent($response);
     }
@@ -57,18 +60,21 @@ class BasketService extends AbstractService
     /**
      * @param $basketUuid
      * @param $productQuantity
-     * {
+     *  {
      *  uuid => string,
      *  tax => float,
      *  price => float,
      *  raw_price => float,
      *  market_price => float
-     * }
+     *  }
      *
      * @return mixed
      */
-    public function addItemByBasketUuid($basketUuid, $productQuantity)
+    public function addItemByBasketUuid($basketUuid, $productQuantity, $options = null)
     {
+
+        $options['form_params'] = $productQuantity;
+
         $response = $this->getClient()
             ->postRequest(
                 str_replace(['{basket_uuid}'], [$basketUuid], self::ADD_ITEM_BY_UUID),
@@ -81,22 +87,25 @@ class BasketService extends AbstractService
     /**
      * @param $basketCookie
      * @param $productQuantity
-     * {
+     *  {
      *  uuid => string,
      *  tax => float,
      *  price => float,
      *  raw_price => float,
      *  market_price => float
-     * }
+     *  }
      *
      * @return mixed
      */
-    public function addItemByBasketCookie($basketCookie, $productQuantity)
+    public function addItemByBasketCookie($basketCookie, $productQuantity, $options = null)
     {
+
+        $options['form_params'] = $productQuantity;
+
         $response = $this->getClient()
             ->postRequest(
                 str_replace(['{basket_cookie}'], [$basketCookie], self::ADD_ITEM_BY_COOKIE),
-                ['form_params' => $productQuantity]
+                $options
             );
 
         return $this->getContent($response);
