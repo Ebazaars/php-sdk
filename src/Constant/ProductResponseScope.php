@@ -4,7 +4,7 @@
 namespace EbazaarsSdk\Constant;
 
 
-class ResponseScope
+class ProductResponseScope
 {
 
     const PRODUCT_SPECIFICATION = 'product.specification';
