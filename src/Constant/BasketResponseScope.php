@@ -11,7 +11,7 @@ class BasketResponseScope
     const BASKET_QUANTITY = 'basket.quantity';
     const BASKET_META_DATA = 'basket.meta_data';
     const BASKET_TIMESTAMP = 'basket.timestamp';
-    const BASKET_ITEM = 'basket_item.quantity';
+    const BASKET_ITEM_QUANTITY = 'basket_item.quantity';
     const BASKET_ITEM_META_DATA = 'basket_item.meta_data';
     const BASKET_ITEM_TIMESTAMP = 'basket_item.timestamp';
     const BASKET_ITEM_STATUS_SPECIFICATION = 'basket_item_status.specification';
