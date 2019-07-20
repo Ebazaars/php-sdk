@@ -30,11 +30,11 @@ class BasketService extends AbstractService
         $this->cookie = new EbazaarsCookie();
     }
 
-    public function create($customerUuid = null, $options = null)
+    public function create($customerUuid = null, $options = [])
     {
         $options['form_params'] = [];
         if (!empty($customerUuid)) {
-            $formParams['customer-uuid'] = $customerUuid;
+            $options['form_params']['customer-uuid'] = $customerUuid;
         }
 
         $response = $this->getClient()->putRequest(self::CREATE, $options);
@@ -47,7 +47,7 @@ class BasketService extends AbstractService
 
     }
 
-    public function detail($cookie, $options = null)
+    public function detail($cookie, $options = [])
     {
         $response = $this->getClient()->getRequest(
             str_replace('{basket_cookie}', $cookie, self::GET_BY_COOKIE),
@@ -70,7 +70,7 @@ class BasketService extends AbstractService
      *
      * @return mixed
      */
-    public function addItemByBasketUuid($basketUuid, $productQuantity, $options = null)
+    public function addItemByBasketUuid($basketUuid, $productQuantity, $options = [])
     {
 
         $options['form_params'] = $productQuantity;
@@ -78,7 +78,7 @@ class BasketService extends AbstractService
         $response = $this->getClient()
             ->postRequest(
                 str_replace(['{basket_uuid}'], [$basketUuid], self::ADD_ITEM_BY_UUID),
-                ['form_params' => $productQuantity]
+                $options
             );
 
         return $this->getContent($response);
@@ -97,7 +97,7 @@ class BasketService extends AbstractService
      *
      * @return mixed
      */
-    public function addItemByBasketCookie($basketCookie, $productQuantity, $options = null)
+    public function addItemByBasketCookie($basketCookie, $productQuantity, $options = [])
     {
 
         $options['form_params'] = $productQuantity;

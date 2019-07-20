@@ -9,7 +9,7 @@ class BannerService extends AbstractService
 
     const GET_BY_BANNER_TYPE = '/banner-type/{slug}';
 
-    public function getByBannerType($slug, $options = null)
+    public function getByBannerType($slug, $options = [])
     {
         $response = $this->getClient()->getRequest(str_replace('{slug}', $slug, self::GET_BY_BANNER_TYPE), $options);
 

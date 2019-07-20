@@ -7,7 +7,7 @@ use EbazaarsSdk\Constant\Http;
 
 class Client extends \GuzzleHttp\Client
 {
-    private $header;
+    public $header;
 
     /**
      * Client constructor.
@@ -24,7 +24,7 @@ class Client extends \GuzzleHttp\Client
             $this->header[\EbazaarsSdk\Constant\Header::getKey('auth_token')] = $clientToken->getToken();
         }
         if (!empty($customerToken)) {
-            $this->header[\EbazaarsSdk\Constant\Header::getKey('customer_token')] = $customerToken->getToken();
+            $this->header[\EbazaarsSdk\Constant\Header::getKey('customer_auth_token')] = $customerToken->getToken();
         }
         parent::__construct($conf);
     }

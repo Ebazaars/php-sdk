@@ -11,14 +11,14 @@ class ProductService extends AbstractService
     const GET_BY_CATEGORY = '/by-category-id/{id}';
     const GET_BY_UUID = '/product/uuid/{productUuid}';
 
-    public function getAllProducts($options = null)
+    public function getAllProducts($options = [])
     {
         $response = $this->getClient()->getRequest(self::ALL_PRODUCTS, $options);
 
         return $this->getContent($response);
     }
 
-    public function getBySlug($slug, $options = null)
+    public function getBySlug($slug, $options = [])
     {
         $response = $this->getClient()->getRequest(
             str_replace('{slug}', $slug, self::GET_BY_SLUG),
@@ -28,7 +28,7 @@ class ProductService extends AbstractService
         return $this->getContent($response);
     }
 
-    public function getByCategory($id, $options = null)
+    public function getByCategory($id, $options = [])
     {
         $response = $this->getClient()->getRequest(
             str_replace('{slug}', $id, self::GET_BY_CATEGORY),
@@ -38,7 +38,7 @@ class ProductService extends AbstractService
         return $this->getContent($response);
     }
 
-    public function getByUuid($productUuid, $options = null)
+    public function getByUuid($productUuid, $options = [])
     {
         $response = $this->getClient()->getRequest(
             str_replace('{productUuid}', $productUuid, self::GET_BY_UUID),

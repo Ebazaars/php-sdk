@@ -10,7 +10,7 @@ class AuthService extends AbstractService
     const AUTH = '/auth/';
     const IS_VALID = '/token/is_valid/';
 
-    public function getToken($username, $password, $options = null)
+    public function getToken($username, $password, $options = [])
     {
         $options['form_params'] = ['username' => $username, 'password' => $password];
 
@@ -22,7 +22,7 @@ class AuthService extends AbstractService
         return $this->getContent($response);
     }
 
-    public function tokenIsValid(Token $token, $options = null)
+    public function tokenIsValid(Token $token, $options = [])
     {
 
         $options['form_params'] = ['token' => $token->getToken()];
