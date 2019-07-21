@@ -8,8 +8,6 @@ use EbazaarsSdk\Model\Address;
 
 class AddressService extends AbstractService
 {
-
-    const ADDRESS_SHOWALL = '/address/user/{id}';
     const ADDRESS_CREATE = '/address/create';
     const GET_COUNTRIES = '/country/';
     const GET_CITY_BY_COUNTRY = '/city/country/{country_id}';
@@ -17,17 +15,7 @@ class AddressService extends AbstractService
     const GET_NEIGHBORHOOD_BY_DISTRICT = '/neighborhood/district/{district_id}';
     const GET_ADDRESS_BY_COOKIE = '/address/cookie/{address_cookie}';
     const GET_ADDRESS_BY_UUID = '/address/uuid/{address_uuid}';
-
-    public function showAll($userId, $addressCookie = null, $options = [])
-    {
-        $queryAddressCookie = (!empty($addressCookie) ? "?addressCookie={$addressCookie}" : '');
-        $response = $this->getClient()->getRequest(
-            str_replace('{id}', $userId, self::ADDRESS_SHOWALL.$queryAddressCookie),
-            $options
-        );
-
-        return $this->getContent($response);
-    }
+    const GET_ADDRESS_BY_CUSTOMER_UUID = '/addresses/customer/uuid/{customer_uuid}';
 
     public function create(Address $address, $options = [])
     {
@@ -111,5 +99,15 @@ class AddressService extends AbstractService
         );
 
         return $this->getContent($address);
+    }
+
+    public function getByCustomerUuid($customerUuid, $options = [])
+    {
+        $addresses = $this->getClient()->getRequest(
+            str_replace('{customer_uuid}', $customerUuid, self::GET_ADDRESS_BY_CUSTOMER_UUID),
+            $options
+        );
+
+        return $this->getContent($addresses);
     }
 }
