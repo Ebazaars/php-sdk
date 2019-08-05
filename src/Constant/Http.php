@@ -22,6 +22,7 @@ class Http
     const BASKET_BASE_URL = 'http://local.basket.ebazaars.net';
     const ORDER_BASE_URL = 'http://local.order.ebazaars.net';
     const ADDRESS_BASE_URL = 'http://local.address.ebazaars.net';
+    const PAYMENT_BASE_URL = 'http://local.payment.ebazaars.net';
 
     const HTTP_OK = 200;
 
@@ -36,7 +37,8 @@ class Http
             'page' => self::PAGE_BASE_URL,
             'basket' => self::BASKET_BASE_URL,
             'order' => self::ORDER_BASE_URL,
-            'address' => self::ADDRESS_BASE_URL
+            'address' => self::ADDRESS_BASE_URL,
+            'payment' => self::PAYMENT_BASE_URL
         ];
 
     private static $methods

@@ -6,6 +6,7 @@ namespace EbazaarsSdk\Model;
 
 class Order
 {
+    public $uuid;
 
     public $basket_uuid;
 
@@ -30,6 +31,24 @@ class Order
     public $discount;
 
     public $address;
+
+    /**
+     * @return mixed
+     */
+    public function getUuid()
+    {
+        return $this->uuid;
+    }
+
+    /**
+     * @param mixed $uuid
+     */
+    public function setUuid($uuid): self
+    {
+        $this->uuid = $uuid;
+
+        return $this;
+    }
 
     /**
      * @return mixed
@@ -240,8 +259,10 @@ class Order
     /**
      * @param mixed $address
      */
-    public function setAddress($address): void
+    public function setAddress($address): self
     {
         $this->address = $address;
+
+        return $this;
     }
 }

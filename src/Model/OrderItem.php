@@ -6,6 +6,8 @@ namespace EbazaarsSdk\Model;
 
 class OrderItem
 {
+    public $uuid;
+
     public $price;
 
     public $discount;
@@ -17,6 +19,24 @@ class OrderItem
     public $meta_data;
 
     public $cargo_price;
+
+    /**
+     * @return mixed
+     */
+    public function getUuid()
+    {
+        return $this->uuid;
+    }
+
+    /**
+     * @param mixed $uuid
+     */
+    public function setUuid($uuid): self
+    {
+        $this->uuid = $uuid;
+
+        return $this;
+    }
 
     /**
      * @return mixed
