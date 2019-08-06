@@ -20,6 +20,8 @@ class OrderItem
 
     public $cargo_price;
 
+    public $product_uuid;
+
     /**
      * @return mixed
      */
@@ -146,5 +148,20 @@ class OrderItem
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getProductUuid()
+    {
+        return $this->product_uuid;
+    }
+
+    /**
+     * @param mixed $product_uuid
+     */
+    public function setProductUuid($product_uuid): void
+    {
+        $this->product_uuid = $product_uuid;
+    }
 
 }
