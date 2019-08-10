@@ -11,6 +11,7 @@ class OrderService extends AbstractService
 
     const ORDER_CREATE = '/order/create';
     const GET_ORDER_BY_COOKIE = '/order/cookie/{order_cookie}';
+    const GET_ORDER_BY_UUID = '/order/uuid/{order_uuid}';
 
     public function create(Order $order, $options = [])
     {
@@ -25,6 +26,16 @@ class OrderService extends AbstractService
     {
         $order = $this->getClient()->getRequest(
             str_replace('{order_cookie}', $cookie, self::GET_ORDER_BY_COOKIE),
+            $options
+        );
+
+        return $this->getContent($order);
+    }
+
+    public function getByUuid($uuid, $options = [])
+    {
+        $order = $this->getClient()->getRequest(
+            str_replace('{order_uuid}', $uuid, self::GET_ORDER_BY_UUID),
             $options
         );
 
