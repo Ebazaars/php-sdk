@@ -78,6 +78,9 @@ class Client extends \GuzzleHttp\Client
         }
 
         if (array_key_exists('scope', $parameters)) {
+            if (is_array($parameters['scope'])) {
+                $parameters['scope'] = implode(',', $parameters['scope']);
+            }
             $parameters['headers'][\EbazaarsSdk\Constant\Header::SCOPE] = $parameters['scope'];
             unset($parameters['scope']);
         }
