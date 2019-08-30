@@ -12,6 +12,7 @@ class OrderService extends AbstractService
     const ORDER_CREATE = '/order/create';
     const GET_ORDER_BY_COOKIE = '/order/cookie/{order_cookie}';
     const GET_ORDER_BY_UUID = '/order/uuid/{order_uuid}';
+    const ORDER_PAYMENT_COMPLETE = '/order/payment/complete/{order_uuid}';
 
     public function create(Order $order, $options = [])
     {
@@ -36,6 +37,17 @@ class OrderService extends AbstractService
     {
         $order = $this->getClient()->getRequest(
             str_replace('{order_uuid}', $uuid, self::GET_ORDER_BY_UUID),
+            $options
+        );
+
+        return $this->getContent($order);
+    }
+
+    public function orderPaid($uuid, $paidToken, $options = [])
+    {
+        $options['form_params'] = ['paid_token' => $paidToken];
+        $order = $this->getClient()->patchRequest(
+            str_replace('{order_uuid}', $uuid, self::ORDER_PAYMENT_COMPLETE),
             $options
         );
 
