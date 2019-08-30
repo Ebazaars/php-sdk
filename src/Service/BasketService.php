@@ -21,6 +21,7 @@ class BasketService extends AbstractService
     const ADD_ITEM_BY_COOKIE = '/basket-item/add/cookie/{basket_cookie}';
 
     const GET_BY_COOKIE = '/basket/cookie/{basket_cookie}';
+    const BASKET_COMPLETE = '/basket/complete/{basket_uuid}';
 
     protected $cookie;
 
@@ -109,5 +110,15 @@ class BasketService extends AbstractService
             );
 
         return $this->getContent($response);
+    }
+
+    public function complete($uuid, $options = [])
+    {
+        $basket = $this->getClient()->patchRequest(
+            str_replace('{basket_uuid}', $uuid, self::BASKET_COMPLETE),
+            $options
+        );
+
+        return $this->getContent($basket);
     }
 }
