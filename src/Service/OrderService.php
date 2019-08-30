@@ -43,9 +43,9 @@ class OrderService extends AbstractService
         return $this->getContent($order);
     }
 
-    public function orderPaid($uuid, $paidToken, $options = [])
+    public function orderPaid($uuid, $paymentStatus,  $paidToken, $options = [])
     {
-        $options['form_params'] = ['paid_token' => $paidToken];
+        $options['form_params'] = ['paid_token' => $paidToken, 'payment_status' => $paymentStatus];
         $order = $this->getClient()->patchRequest(
             str_replace('{order_uuid}', $uuid, self::ORDER_PAYMENT_COMPLETE),
             $options
