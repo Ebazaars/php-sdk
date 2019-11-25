@@ -4,6 +4,7 @@ namespace EbazaarsSdk\Service;
 
 use EbazaarsSdk\Authentication\Token;
 use EbazaarsSdk\Model\Phone;
+use EbazaarsSdk\Model\Register;
 
 class UserService extends AbstractService
 {
@@ -15,31 +16,11 @@ class UserService extends AbstractService
     const CREATE_PHONE = '/phone/create';
     const GET_PHONE_BY_UUID = '/phone/uuid/{phone_uuid}';
 
-    public function register(
-        $email,
-        $password,
-        $name,
-        $surname,
-        $registerType,
-        $country = null,
-        $phoneCode = null,
-        $phoneNo = null
-    ) {
-        $response = $this->getClient()->postRequest(
-            self::REGISTER,
-            [
-                'form_params' => [
-                    'email'        => $email,
-                    'password'     => $password,
-                    'name'         => $name,
-                    'surname'      => $surname,
-                    'registerType' => $registerType,
-                    'country'      => $country,
-                    'phoneCode'    => $phoneCode,
-                    'phoneNo'      => $phoneNo,
-                ],
-            ]
-        );
+    public function register(Register $register, $options = [])
+    {
+        $options['form_params'] = json_decode(json_encode($register), true);
+
+        $response = $this->getClient()->postRequest(self::REGISTER, $options);
 
         return $this->getContent($response);
     }
@@ -75,7 +56,10 @@ class UserService extends AbstractService
 
     public function getPhoneByUuid($phoneUuid, $options = [])
     {
-        $phone = $this->getClient()->getRequest(str_replace('{phone_uuid}', $phoneUuid, self::GET_PHONE_BY_UUID), $options);
+        $phone = $this->getClient()->getRequest(
+            str_replace('{phone_uuid}', $phoneUuid, self::GET_PHONE_BY_UUID),
+            $options
+        );
 
         return $this->getContent($phone);
     }
