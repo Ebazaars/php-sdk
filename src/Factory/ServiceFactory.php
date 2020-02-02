@@ -12,20 +12,20 @@ class ServiceFactory
 
     /**
      * @param        $serviceClass
-     * @param array  $config         {
-     * @param string $baseUrl        (required)
+     * @param array $config {
+     * @param string $baseUrl (required)
      * @param string $clientUsername (required)
      * @param string $clientPassword (required)
-     * @param null   $clientToken    (required for client)
-     * @param null   $customerToken  (required for customer)
+     * @param null $clientToken (required for client)
+     * @param null $customerToken (required for customer)
      *                               }
      *
      * @return mixed
      */
     public function createService($serviceClass, array $config = [])
     {
-        if (empty($config['base_url'])) {
-            $config['base_url'] = Http::getBaseUrl('api');
+        if(!isset($config['base_url'])) {
+            $config['base_url'] = Http::ORIGIN_BASE_URL;
         }
 
         $configFactory = new ConfigFactory();
@@ -44,12 +44,12 @@ class ServiceFactory
 
     /**
      * @param        $serviceClass
-     * @param array  $config         {
-     * @param string $baseUrl        (required)
+     * @param array $config {
+     * @param string $baseUrl (required)
      * @param string $clientUsername (required)
      * @param string $clientPassword (required)
-     * @param null   $clientToken
-     * @param null   $customerToken
+     * @param null $clientToken
+     * @param null $customerToken
      *                               }
      *
      * @return mixed

@@ -36,6 +36,23 @@ class Session
         $this->set('client_token', serialize(new Token($token)));
     }
 
+    public function hasServiceSessionId()
+    {
+        return !empty($_SESSION['service_session_id']);
+    }
+
+    public function setServiceSessionId($serviceSessionId)
+    {
+        $_SESSION['service_session_id'] = $serviceSessionId;
+
+        return $this;
+    }
+
+    public function getServiceSessionId()
+    {
+        return isset($_SESSION['service_session_id']) ? $_SESSION['service_session_id'] : null;
+    }
+
     /**
      * @return Token|null
      */
