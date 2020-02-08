@@ -23,5 +23,5 @@ class PageService extends AbstractService
 
         return $this->getContent($response);
     }
-
+    
 }

@@ -6,8 +6,8 @@ namespace EbazaarsSdk\Service;
 
 class ClientService extends AbstractService
 {
-    const GET_CONFIG_VERSION = '/client-config/version';
-    const GET_CONFIG = '/client-config/';
+    const GET_CONFIG_VERSION = '/client/config/version';
+    const GET_CONFIG = '/client/config';
 
     public function getConfigVersion($options = [])
     {
