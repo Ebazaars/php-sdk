@@ -10,7 +10,7 @@ class ProductService extends AbstractService
     const GET_BY_SLUG = '/product/slug/{slug}';
     const GET_BY_CATEGORY_SLUG = '/products/category/slug/{category_slug}';
     const GET_BY_UUID = '/product/uuid/{productUuid}';
-    const GET_ALL_CATEGORIES = '/categories/all';
+    const GET_ALL_CATEGORIES = '/product/categories/all';
 
     public function getAllProducts($options = [])
     {
