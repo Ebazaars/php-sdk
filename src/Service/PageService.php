@@ -9,6 +9,7 @@ class PageService extends AbstractService
 
     const PAGES = '/pages/';
     const BY_SLUG = '/page/slug/{slug}';
+    const GET_ALL_TAG = '/tag/all';
 
     public function getAll($options = [])
     {
@@ -23,5 +24,12 @@ class PageService extends AbstractService
 
         return $this->getContent($response);
     }
-    
+
+    public function getAllTags($options = [])
+    {
+        $response = $this->getClient()->getRequest(self::GET_ALL_TAG, $options);
+
+        return $this->getContent($response);
+    }
+
 }
