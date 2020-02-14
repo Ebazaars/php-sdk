@@ -10,7 +10,7 @@ class PageService extends AbstractService
     const PAGES = '/pages/';
     const BY_SLUG = '/page/slug/{slug}';
     const GET_ALL_PAGE_WITH_PAGINATION = '/page/all/page/{page}';
-    const GET_ALL_TAG = '/tag/all';
+    const GET_ALL_TAG = '/page/tag/all';
 
     public function getAll($options = [])
     {
