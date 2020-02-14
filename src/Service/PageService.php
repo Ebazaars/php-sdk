@@ -35,7 +35,7 @@ class PageService extends AbstractService
 
     public function getAllWithPagination($page = 1, $options = [])
     {
-        $response = $this->getClient()->getRequest(str_replace('{page}', $page, self::GET_ALL_PAGE_WITH_PAGINATION));
+        $response = $this->getClient()->getRequest(str_replace('{page}', $page, self::GET_ALL_PAGE_WITH_PAGINATION), $options);
 
         return $this->getContent($response);
     }
