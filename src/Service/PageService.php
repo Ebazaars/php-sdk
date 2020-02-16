@@ -12,6 +12,7 @@ class PageService extends AbstractService
     const GET_ALL_PAGE_WITH_PAGINATION = '/page/all/page/{page}';
     const GET_ALL_TAG = '/page/tag/all';
     const FILTER_BY_TAGS_WITH_PAGINATION = '/page/filter/by/tags/page/{page}';
+    const GET_LAST_PAGES = '/pages/lasts/{limit}';
 
     public function getAll($options = [])
     {
@@ -47,7 +48,17 @@ class PageService extends AbstractService
     public function filterByTags($tags, $page = 1, $options = [])
     {
         $options['form_params']['tags'] = $tags;
-        $response = $this->getClient()->postRequest(str_replace('{page}', $page, self::FILTER_BY_TAGS_WITH_PAGINATION), $options);
+        $response = $this->getClient()->postRequest(
+            str_replace('{page}', $page, self::FILTER_BY_TAGS_WITH_PAGINATION),
+            $options
+        );
+
+        return $this->getContent($response);
+    }
+
+    public function getLastPages($limit = 7, $options = [])
+    {
+        $response = $this->getClient()->getRequest(str_replace('{limit}', $limit, self::GET_LAST_PAGES), $options);
 
         return $this->getContent($response);
     }
