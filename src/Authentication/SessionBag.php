@@ -11,11 +11,6 @@ class SessionBag
 
     protected static $sessionBag;
 
-    public function __construct()
-    {
-        self::$sessionBag = new ParameterBag();
-    }
-
     public static function set($key, $value)
     {
         self::$sessionBag->set($key, $value);
@@ -80,6 +75,13 @@ class SessionBag
     public static function hasServiceSessionId()
     {
         return self::has(\EbazaarsSdk\Constant\Session::SERVICE_SESSION_ID);
+    }
+
+    public static function __callStatic($name, $arguments)
+    {
+        if (!self::$sessionBag instanceof ParameterBag) {
+            self::$sessionBag = new ParameterBag();
+        }
     }
 
 }
