@@ -2,13 +2,15 @@
 
 namespace EbazaarsSdk\Client;
 
-use EbazaarsSdk\Authentication\SessionBag;
+use EbazaarsSdk\Authentication\Session;
 use EbazaarsSdk\Config\Config;
 use EbazaarsSdk\Constant\Http;
 
 class Client extends \GuzzleHttp\Client
 {
     public $header;
+
+    protected $session;
 
     /**
      * Client constructor.
@@ -30,7 +32,7 @@ class Client extends \GuzzleHttp\Client
         }
         parent::__construct($conf);
 
-        new SessionBag();
+        $this->session = new Session();
     }
 
     public function getRequest($uri, array $options = [])
@@ -91,8 +93,8 @@ class Client extends \GuzzleHttp\Client
             $parameters['headers'] = $this->header->getArrayCopy();
         }
 
-        if (SessionBag::has(\EbazaarsSdk\Constant\Session::SERVICE_SESSION_ID)) {
-            $parameters['headers']['Cookie']['PHPSESSID'] = SessionBag::get(\EbazaarsSdk\Constant\Session::SERVICE_SESSION_ID);
+        if ($this->session->hasServiceSessionId()) {
+            $parameters['headers']['Cookie']['PHPSESSID'] = $this->session->getServiceSessionId();
         }
 
         if (array_key_exists('scope', $parameters)) {
@@ -114,7 +116,7 @@ class Client extends \GuzzleHttp\Client
         }
 
         if (isset($cookies['Value'])) {
-            SessionBag::set(\EbazaarsSdk\Constant\Session::SERVICE_SESSION_ID,$cookies['Value']);
+            $this->session->setServiceSessionId($cookies['Value']);
         }
 
         return $this;
