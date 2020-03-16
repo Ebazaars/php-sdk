@@ -31,15 +31,20 @@ class Client extends \GuzzleHttp\Client
             $this->header[\EbazaarsSdk\Constant\Header::getKey('customer_auth_token')] = $customerToken->getToken();
         }
         parent::__construct($conf);
-
         $this->session = new Session();
+
+        if (!$this->session->getServiceSessionId()) {
+            $sessionId = json_decode($this->getRequest('/secure/session')->getBody()->getContents(), true);
+            if (!empty($sessionId)) {
+                $this->session->setServiceSessionId($sessionId['PHPSESSID']);
+            }
+        }
     }
 
     public function getRequest($uri, array $options = [])
     {
         $options = $this->mergeHeader($options);
         $response = $this->request(Http::getMethodName('get'), $uri, $options);
-        $this->handleServiceSessionId();
 
         return $response;
     }
@@ -48,7 +53,6 @@ class Client extends \GuzzleHttp\Client
     {
         $options = $this->mergeHeader($options);
         $response = $this->request(Http::getMethodName('post'), $uri, $options);
-        $this->handleServiceSessionId();
 
         return $response;
     }
@@ -57,7 +61,6 @@ class Client extends \GuzzleHttp\Client
     {
         $options = $this->mergeHeader($options);
         $response = $this->request(Http::getMethodName('put'), $uri, $options);;
-        $this->handleServiceSessionId();
 
         return $response;
     }
@@ -66,7 +69,6 @@ class Client extends \GuzzleHttp\Client
     {
         $options = $this->mergeHeader($options);
         $response = $this->request(Http::getMethodName('patch'), $uri, $options);
-        $this->handleServiceSessionId();
 
         return $response;
     }
@@ -75,7 +77,6 @@ class Client extends \GuzzleHttp\Client
     {
         $options = $this->mergeHeader($options);
         $response = $this->request(Http::getMethodName('delete'), $uri, $options);
-        $this->handleServiceSessionId();
 
         return $response;
     }
@@ -94,7 +95,7 @@ class Client extends \GuzzleHttp\Client
         }
 
         if ($this->session->hasServiceSessionId()) {
-            $parameters['headers']['Cookie']['PHPSESSID'] = $this->session->getServiceSessionId();
+            $parameters['headers']['Cookie'] = 'PHPSESSID='.$this->session->getServiceSessionId();
         }
 
         if (array_key_exists('scope', $parameters)) {
@@ -106,19 +107,5 @@ class Client extends \GuzzleHttp\Client
         }
 
         return $parameters;
-    }
-
-    protected function handleServiceSessionId()
-    {
-        $cookies = $this->getConfig('cookies')->toArray();
-        if (count($cookies) == 1) {
-            $cookies = current($cookies);
-        }
-
-        if (isset($cookies['Value'])) {
-            $this->session->setServiceSessionId($cookies['Value']);
-        }
-
-        return $this;
     }
 }
