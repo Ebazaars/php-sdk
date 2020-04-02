@@ -10,7 +10,7 @@ class BannerService extends AbstractService
 {
 
     const GET_BY_BANNER_TYPE = '/banner/type/{slug}';
-    const FILTER = '/banner/filte';
+    const FILTER = '/banner/filter';
 
     public function getByBannerType($slug, $options = [])
     {
