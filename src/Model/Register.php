@@ -29,9 +29,11 @@ class Register
     /**
      * @param mixed $register_type
      */
-    public function setRegisterType($register_type): void
+    public function setRegisterType($register_type): self 
     {
         $this->register_type = $register_type;
+
+        return $this;
     }
 
     /**
@@ -45,9 +47,11 @@ class Register
     /**
      * @param mixed $phone_code
      */
-    public function setPhoneCode($phone_code): void
+    public function setPhoneCode($phone_code): self 
     {
         $this->phone_code = $phone_code;
+
+        return $this;
     }
 
     /**
@@ -61,9 +65,11 @@ class Register
     /**
      * @param mixed $phone_no
      */
-    public function setPhoneNo($phone_no): void
+    public function setPhoneNo($phone_no): self 
     {
         $this->phone_no = $phone_no;
+
+        return $this;
     }
 
     /**
@@ -77,9 +83,11 @@ class Register
     /**
      * @param mixed $country_code
      */
-    public function setCountryCode($country_code): void
+    public function setCountryCode($country_code): self 
     {
         $this->country_code = $country_code;
+
+        return $this;
     }
 
     /**
@@ -93,9 +101,11 @@ class Register
     /**
      * @param mixed $email
      */
-    public function setEmail($email): void
+    public function setEmail($email): self 
     {
         $this->email = $email;
+        
+        return $this;
     }
 
     /**
@@ -109,9 +119,11 @@ class Register
     /**
      * @param mixed $name
      */
-    public function setName($name): void
+    public function setName($name): self 
     {
         $this->name = $name;
+
+        return $this;
     }
 
     /**
@@ -125,9 +137,11 @@ class Register
     /**
      * @param mixed $surname
      */
-    public function setSurname($surname): void
+    public function setSurname($surname): self 
     {
         $this->surname = $surname;
+
+        return $this;
     }
 
     /**
@@ -141,9 +155,11 @@ class Register
     /**
      * @param mixed $password
      */
-    public function setPassword($password): void
+    public function setPassword($password): self 
     {
         $this->password = $password;
+
+        return $this;
     }
 
 
