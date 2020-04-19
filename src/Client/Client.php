@@ -32,13 +32,6 @@ class Client extends \GuzzleHttp\Client
         }
         parent::__construct($conf);
         $this->session = new Session();
-
-        if (!$this->session->getServiceSessionId()) {
-            $sessionId = json_decode($this->getRequest('/secure/session')->getBody()->getContents(), true);
-            if (!empty($sessionId)) {
-                $this->session->setServiceSessionId($sessionId['PHPSESSID']);
-            }
-        }
     }
 
     public function getRequest($uri, array $options = [])

@@ -6,6 +6,9 @@ namespace EbazaarsSdk\Authentication;
 
 class Session
 {
+    const CUSTOMER_TOKEN_KEY = 'customer_token';
+    const CLIENT_TOKEN_KEY = 'client_token';
+    const SERVICE_SESSION_ID_KEY = 'service_session_id';
 
     public function __construct()
     {
@@ -28,29 +31,12 @@ class Session
 
     public function hasClientToken()
     {
-        return !empty($_SESSION['client_token']) ? true : false;
+        return !empty($_SESSION[self::CLIENT_TOKEN_KEY]);
     }
 
-    public function setClientToken(string $token)
+    public function setClientToken(string $token, $invalid_date = null)
     {
-        $this->set('client_token', serialize(new Token($token)));
-    }
-
-    public function hasServiceSessionId()
-    {
-        return !empty($_SESSION['service_session_id']);
-    }
-
-    public function setServiceSessionId($serviceSessionId)
-    {
-        $_SESSION['service_session_id'] = $serviceSessionId;
-
-        return $this;
-    }
-
-    public function getServiceSessionId()
-    {
-        return isset($_SESSION['service_session_id']) ? $_SESSION['service_session_id'] : null;
+        $this->set(self::CLIENT_TOKEN_KEY, serialize(new Token($token, $invalid_date)));
     }
 
     /**
@@ -58,17 +44,34 @@ class Session
      */
     public function getClientToken()
     {
-        return $this->hasClientToken() ? unserialize($this->get('client_token')) : null;
+        return $this->hasClientToken() ? unserialize($this->get(self::CLIENT_TOKEN_KEY)) : null;
+    }
+
+    public function hasServiceSessionId()
+    {
+        return !empty($_SESSION[self::SERVICE_SESSION_ID_KEY]);
+    }
+
+    public function setServiceSessionId($serviceSessionId)
+    {
+        $_SESSION[self::SERVICE_SESSION_ID_KEY] = $serviceSessionId;
+
+        return $this;
+    }
+
+    public function getServiceSessionId()
+    {
+        return isset($_SESSION[self::SERVICE_SESSION_ID_KEY]) ? $_SESSION[self::SERVICE_SESSION_ID_KEY] : null;
     }
 
     public function hasCustomerToken()
     {
-        return !empty($_SESSION['customer_token']) ? true : false;
+        return !empty($_SESSION[self::CUSTOMER_TOKEN_KEY]);
     }
 
-    public function setCustomerToken(string $token)
+    public function setCustomerToken(string $token, $invalid_date = null)
     {
-        $this->set('customer_token', serialize(new Token($token)));
+        $this->set(self::CUSTOMER_TOKEN_KEY, serialize(new Token($token, $invalid_date)));
     }
 
     /**
@@ -76,6 +79,6 @@ class Session
      */
     public function getCustomerToken()
     {
-        return $this->hasCustomerToken() ? unserialize($this->get('customer_token')) : null;
+        return $this->hasCustomerToken() ? unserialize($this->get(self::CUSTOMER_TOKEN_KEY)) : null;
     }
 }
