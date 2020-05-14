@@ -97,7 +97,7 @@ class Client extends \GuzzleHttp\Client
         }
         
         if (!array_key_exists('X-EBZ-CLIENT-IP', $parameters['headers'])) {
-            $parameters['headers'][\EbazaarsSdk\Constant\Header::EBAZAARS_CLIENT_IP] = (!empty($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : (!empty($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : ''));
+            $parameters['headers'][\EbazaarsSdk\Constant\Header::EBAZAARS_CLIENT_IP] = (!empty($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : (!empty($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : ''));
         }
 
         if(!array_key_exists(\EbazaarsSdk\Constant\Header::EBAZAARS_USER_AGENT, $parameters['headers'])) {
