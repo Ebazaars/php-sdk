@@ -9,6 +9,8 @@ class Header
     const CUSTOMER_TOKEN = 'X-EBZ-CUSTOMER-AUTH-TOKEN';
     const SCOPE = 'X-EBZ-GROUPS';
 
+    const EBAZAARS_CLIENT_IP = 'X-EBZ-CLIENT-IP';
+    const EBAZAARS_USER_AGENT = 'x-EBZ-USER-AGENT';
 
     const COOKIE_BASKET = 'X-EBZ-BASKET';
     const RG_UUID = 'uuid';

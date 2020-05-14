@@ -39,6 +39,7 @@ class Client extends \GuzzleHttp\Client
         $options = $this->mergeHeader($options);
         $response = $this->request(Http::getMethodName('get'), $uri, $options);
         $this->handleServiceSessionId();
+
         return $response;
     }
 
@@ -47,6 +48,7 @@ class Client extends \GuzzleHttp\Client
         $options = $this->mergeHeader($options);
         $response = $this->request(Http::getMethodName('post'), $uri, $options);
         $this->handleServiceSessionId();
+
         return $response;
     }
 
@@ -55,6 +57,7 @@ class Client extends \GuzzleHttp\Client
         $options = $this->mergeHeader($options);
         $response = $this->request(Http::getMethodName('put'), $uri, $options);;
         $this->handleServiceSessionId();
+
         return $response;
     }
 
@@ -63,6 +66,7 @@ class Client extends \GuzzleHttp\Client
         $options = $this->mergeHeader($options);
         $response = $this->request(Http::getMethodName('patch'), $uri, $options);
         $this->handleServiceSessionId();
+
         return $response;
     }
 
@@ -71,6 +75,7 @@ class Client extends \GuzzleHttp\Client
         $options = $this->mergeHeader($options);
         $response = $this->request(Http::getMethodName('delete'), $uri, $options);
         $this->handleServiceSessionId();
+
         return $response;
     }
 
@@ -89,6 +94,14 @@ class Client extends \GuzzleHttp\Client
 
         if ($this->session->hasServiceSessionId()) {
             $parameters['headers']['Cookie'] = 'PHPSESSID='.$this->session->getServiceSessionId();
+        }
+        
+        if (!array_key_exists('X-EBZ-CLIENT-IP', $parameters['headers'])) {
+            $parameters['headers'][\EbazaarsSdk\Constant\Header::EBAZAARS_CLIENT_IP] = !empty($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : !empty($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : '';
+        }
+
+        if(!array_key_exists(\EbazaarsSdk\Constant\Header::EBAZAARS_USER_AGENT, $parameters['headers'])) {
+            $parameters['headers']['User-Agent'] = !empty($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
         }
 
         if (array_key_exists('scope', $parameters)) {
