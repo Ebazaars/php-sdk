@@ -3,6 +3,7 @@
 namespace EbazaarsSdk\Service;
 
 use EbazaarsSdk\Authentication\Token;
+use EbazaarsSdk\Constant\Header;
 
 class AuthService extends AbstractService
 {
@@ -10,9 +11,9 @@ class AuthService extends AbstractService
     const AUTH = '/auth/';
     const IS_VALID = '/auth/token/is_valid/';
 
-    public function getToken($username, $password, $options = [])
+    public function getToken($username, $password, $grantType = Header::CLIENT_CREDENTIALS, $options = [])
     {
-        $options['form_params'] = ['username' => $username, 'password' => $password];
+        $options['form_params'] = ['username' => $username, 'password' => $password, 'grant_type' => $grantType];
 
         $response = $this->getClient()->postRequest(
             self::AUTH,
