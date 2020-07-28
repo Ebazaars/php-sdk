@@ -21,6 +21,7 @@ class Client extends \GuzzleHttp\Client
     {
         $conf['base_uri'] = $config->getBaseUrl();
         $conf['cookies'] = true;
+        $conf['http_errors'] = false;
         $this->header = new Header();
         $clientToken = $config->getClientToken();
         $customerToken = $config->getCustomerToken();
